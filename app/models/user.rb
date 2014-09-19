@@ -16,18 +16,13 @@ class User < ActiveRecord::Base
   end
 
 
-  # def full_name
-  #  if self.first_name.blank? && self.last_name.blank?
-  #       return "has no name"
-  #  else
-  #       if self.first_name.blank?
-  #           return self.last_name
-  #       elsif self.last_name.blank?
-  #           return self.first_name
-  #       else
-  #            return self.first_name + " " + self.last_name
-  #       end
-  #  end
-  # end
+  def gravatar_url
+    stripped_email = email.strip
+    downcased_email = stripped_email.downcase
+    hash = Digest::MD5.hexdigest(downcased_email)
+
+    "http://gravatar.com/avatar/#{hash}"
+  end   
+ 
 
 end
